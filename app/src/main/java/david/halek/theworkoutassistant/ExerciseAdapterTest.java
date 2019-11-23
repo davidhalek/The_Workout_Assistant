@@ -1,14 +1,17 @@
 package david.halek.theworkoutassistant;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder> {
+public class ExerciseAdapterTest extends RecyclerView.Adapter<ExerciseAdapterTest.MyViewHolder> {
 //    private String[] mDataset;
         private ArrayList exerciseList;
 
@@ -19,24 +22,34 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder> 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView textView;
+
         public MyViewHolder(TextView v) {
             super(v);
             textView = v;
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View vv) {
+                    int position = getAdapterPosition();
+
+                    Snackbar.make(vv, "Click detected on item " + position,
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public TestAdapter(ArrayList myDataset) {
+    public ExerciseAdapterTest(ArrayList myDataset) {
         exerciseList = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public TestAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                       int viewType) {
+    public ExerciseAdapterTest.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                               int viewType) {
         // create a new view
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
+                .inflate(R.layout.exercise_text_view, parent, false);
 //        ...
         MyViewHolder vh = new MyViewHolder(v);
         return vh;

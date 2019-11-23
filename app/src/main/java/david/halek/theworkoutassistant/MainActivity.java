@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import static david.halek.theworkoutassistant.ConnectionClass.getExerciseList;
 import static david.halek.theworkoutassistant.ConnectionClass.getFirstName;
-//import static david.halek.theworkoutassistant.DbFunctions.getFirstName;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new TestAdapter(getExerciseList());
+        mAdapter = new ExerciseAdapterTest(getExerciseList());
         recyclerView.setAdapter(mAdapter);
         getExerciseList("", 1);
     }

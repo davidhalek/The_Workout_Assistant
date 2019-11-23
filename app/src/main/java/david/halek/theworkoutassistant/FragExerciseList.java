@@ -15,15 +15,13 @@ import android.view.ViewGroup;
 import david.halek.theworkoutassistant.dummy.DummyContent;
 import david.halek.theworkoutassistant.dummy.DummyContent.DummyItem;
 
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class MyListFragment extends Fragment {
+public class FragExerciseList extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -35,13 +33,13 @@ public class MyListFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public MyListFragment() {
+    public FragExerciseList() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static MyListFragment newInstance(int columnCount) {
-        MyListFragment fragment = new MyListFragment();
+    public static FragExerciseList newInstance(int columnCount) {
+        FragExerciseList fragment = new FragExerciseList();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -60,7 +58,7 @@ public class MyListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.my_list_fragment_list, container, false);
+        View view = inflater.inflate(R.layout.exercise_fragment_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -71,7 +69,7 @@ public class MyListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new ExerciseRecyclerAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }

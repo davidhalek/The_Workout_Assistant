@@ -7,22 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import david.halek.theworkoutassistant.FragExerciseList.OnListFragmentInteractionListener;
 import david.halek.theworkoutassistant.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link FragExerciseList.OnFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<ExerciseRecyclerAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final FragExerciseList.OnFragmentInteractionListener mListener;
 
-    public ExerciseRecyclerAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public ExerciseRecyclerAdapter(List<DummyItem> items, FragExerciseList.OnFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

@@ -8,17 +8,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import david.halek.theworkoutassistant.dummy.DummyContent;
+import java.util.ArrayList;
+
 import david.halek.theworkoutassistant.dummy.DummyContent.DummyItem;
+
+import static david.halek.theworkoutassistant.ConnectionClass.getExerciseList;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
 public class FragExerciseList extends Fragment {
@@ -27,7 +31,8 @@ public class FragExerciseList extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
+    private ArrayList exerciseList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -58,19 +63,27 @@ public class FragExerciseList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.recTest, container, false);
         View view = inflater.inflate(R.layout.exercise_fragment_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new ExerciseRecyclerAdapter(DummyContent.ITEMS, mListener));
+//        if (view instanceof RecyclerView) {
+        Context context = view.getContext();
+//            RecyclerView recyclerView = (RecyclerView) view;
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recTest);
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+        exerciseList = getExerciseList();
+        ExerciseAdapterTest mAdapter = new ExerciseAdapterTest(exerciseList);
+//        if (exerciseList.size() > 0 && mListener != null) {
+            recyclerView.setAdapter(mAdapter);
+            Log.e("frag", "-------------------------");
+//        }
+        Log .e("frag", "--> Exercise list size: " + exerciseList.size() + " <--");
+//        }
         return view;
     }
 
@@ -78,12 +91,13 @@ public class FragExerciseList extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         }
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -102,8 +116,9 @@ public class FragExerciseList extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
+    public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(String string);
     }
 }

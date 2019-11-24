@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ExerciseAdapterTest extends RecyclerView.Adapter<ExerciseAdapterTest.MyViewHolder> {
 //    private String[] mDataset;
         private ArrayList exerciseList;
+        private FragExerciseList.OnFragmentInteractionListener mListener;
 
 
     // Provide a reference to the views for each data item
@@ -39,6 +40,10 @@ public class ExerciseAdapterTest extends RecyclerView.Adapter<ExerciseAdapterTes
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
+    public ExerciseAdapterTest(ArrayList myDataset, FragExerciseList.OnFragmentInteractionListener listener) {
+        exerciseList = myDataset;
+        mListener = listener;
+    }
     public ExerciseAdapterTest(ArrayList myDataset) {
         exerciseList = myDataset;
     }

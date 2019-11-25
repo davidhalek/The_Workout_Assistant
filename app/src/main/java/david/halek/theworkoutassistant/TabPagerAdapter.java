@@ -1,5 +1,7 @@
 package david.halek.theworkoutassistant;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -14,14 +16,18 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
+        Log.e("frag", "--- Position is " + position + " ---");
+        return new FragExerciseList();
         // Todo: add other fragments
+        /*
         switch (position) {
             case 3:
                 return new FragExerciseList();
             default:
                 return null;
         }
+        */
+
     }
 
     @Override

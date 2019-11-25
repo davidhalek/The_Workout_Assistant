@@ -58,6 +58,8 @@ public class FragExerciseList extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        Log.e("frag", "----- FragExerciseList onCreate() ---------");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package david.halek.theworkoutassistant;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class ExerciseAdapterTest extends RecyclerView.Adapter<ExerciseAdapterTes
             textView = v;
             v.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View vv) {
+                    Log.e("Adapter", "Click detected.");
                     int position = getAdapterPosition();
 
                     Snackbar.make(vv, "Click detected on item " + position,

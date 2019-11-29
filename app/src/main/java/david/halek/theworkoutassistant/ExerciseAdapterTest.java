@@ -28,6 +28,7 @@ public class ExerciseAdapterTest extends RecyclerView.Adapter<ExerciseAdapterTes
         public MyViewHolder(TextView v) {
             super(v);
             textView = v;
+            Log.e("ADAPTER", "Setting OnClickListener");
             v.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View vv) {
                     Log.e("Adapter", "Click detected.");

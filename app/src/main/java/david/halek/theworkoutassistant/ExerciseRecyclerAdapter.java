@@ -2,6 +2,7 @@ package david.halek.theworkoutassistant;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<ExerciseRecycl
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("ERA", "Setting setOnClickListener");
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.

@@ -6,15 +6,13 @@
     android:layout_height="match_parent"
     android:name="david.halek.theworkoutassistant.FragExerciseList"
     android:id="@+id/fragExerciseListCoordinator"
-    android:clickable="true"
     tools:context=".FragExerciseDetail">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recTest"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
@@ -27,6 +25,9 @@
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!--            android:clickable="true"-->
+    <!--            android:focusable="true"-->
 
     <!--<?xml version="1.0" encoding="utf-8"?>-->
     <!--<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"-->

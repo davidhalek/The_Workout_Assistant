@@ -1,5 +1,6 @@
 package david.halek.theworkoutassistant;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 import david.halek.theworkoutassistant.dummy.DummyContent.DummyItem;
 
+import static android.content.ContentValues.TAG;
 import static david.halek.theworkoutassistant.ConnectionClass.getExerciseList;
 
 /**
@@ -25,7 +27,7 @@ import static david.halek.theworkoutassistant.ConnectionClass.getExerciseList;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class FragExerciseList extends Fragment {
+public class FragExerciseList extends Fragment implements ExerciseClickListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -33,6 +35,7 @@ public class FragExerciseList extends Fragment {
     private int mColumnCount = 1;
     private OnFragmentInteractionListener mListener;
     private ArrayList exerciseList;
+    private Context thisContext;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,6 +62,7 @@ public class FragExerciseList extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
+        thisContext = getContext();
         Log.e("frag", "----- FragExerciseList onCreate() ---------");
     }
 
@@ -73,15 +77,37 @@ public class FragExerciseList extends Fragment {
         Context context = view.getContext();
 //            RecyclerView recyclerView = (RecyclerView) view;
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recTest);
-        if (mColumnCount <= 1) {
+        if (mColumnCount <= 1)
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//        } else {
+//            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+//        }
+        if (exerciseList == null) {
+            Log.e("FRAG", "exerciseList is null");
+            exerciseList = getExerciseList();
         } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            Log.e("FRAG", "exerciseList is NOT null");
         }
-        exerciseList = getExerciseList();
-        ExerciseAdapterTest mAdapter = new ExerciseAdapterTest(exerciseList);
+
+        ExerciseAdapterTest mAdapter = new ExerciseAdapterTest(exerciseList, context);
+//            @Override
+//            public void onItemClick(int position, View v) {
+//                Log.e("FragExerciseList", "onITEMClicked " + position);
+//            }
+//
+//            @Override public void onPositionClicked(int position) {
+//                Log.e("FragExerciseList", "onPositionClicked " + position);
+//            }
+//        });
+//        mAdapter.setOnClickListener(new ExerciseAdapterTest.ClickListener() {
+//            @Override
+//            public void onItemClick(int position, View v) {
+//                Log.e("FragExerciseList", "onItemClick position: " + position);
+//            }
+//        });
 //        if (exerciseList.size() > 0 && mListener != null) {
             recyclerView.setAdapter(mAdapter);
+            mAdapter.setClickListener(this);
             Log.e("frag", "-------------------------");
 //        }
         Log .e("frag", "--> Exercise list size: " + exerciseList.size() + " <--");
@@ -95,17 +121,24 @@ public class FragExerciseList extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+            Log.e("FRAG", "onAttach mlistener called");
         }
 //        } else {
 //            throw new RuntimeException(context.toString()
 //                    + " must implement OnFragmentInteractionListener");
 //        }
+        Log.e("***", "***************");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        Log.e("FRAG", "OnClick called: "+position);
     }
 
     /**

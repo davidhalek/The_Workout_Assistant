@@ -1,7 +1,7 @@
 package david.halek.theworkoutassistant;
 
-public class ExerciseListElement {
-    public int exerciseId = -1;
+public class ExerciseListElementOld {
+    public int exerciseId = -2;
     public String exerciseName = "";
 
     // Getters & Setters

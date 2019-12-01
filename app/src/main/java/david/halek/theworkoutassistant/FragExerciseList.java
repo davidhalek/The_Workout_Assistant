@@ -22,8 +22,6 @@ import static android.content.ContentValues.TAG;
 import static david.halek.theworkoutassistant.ConnectionClass.getExerciseList;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
@@ -122,6 +120,7 @@ public class FragExerciseList extends Fragment implements ExerciseClickListener 
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
             Log.e("FRAG", "onAttach mlistener called");
+//            mListener.setOnListFragmentInteractionListener(this);
         }
 //        } else {
 //            throw new RuntimeException(context.toString()

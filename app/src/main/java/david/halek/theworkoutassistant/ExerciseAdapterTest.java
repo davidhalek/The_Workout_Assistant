@@ -5,16 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import exercise.ExerciseObject;
 
 public class ExerciseAdapterTest extends RecyclerView.Adapter<ExerciseAdapterTest.MyViewHolder> { //implements View.OnClickListener {
 //    private FragExerciseList.OnFragmentInteractionListener mListener;
@@ -48,7 +46,7 @@ public class ExerciseAdapterTest extends RecyclerView.Adapter<ExerciseAdapterTes
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ExerciseListElement ob = (ExerciseListElement)exerciseList.get(position);
+        ExerciseObject ob = (ExerciseObject)exerciseList.get(position);
         holder.textView.setText(ob.getExerciseName());
     }
 

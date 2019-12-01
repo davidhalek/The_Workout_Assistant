@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+
+import exercise.ExerciseDetail;
+import exercise.ExerciseObject;
 
 public class ConnectionClass {
     String ip = "exercise.ckiipompt8fh.us-east-2.rds.amazonaws.com";
@@ -66,8 +68,8 @@ public class ConnectionClass {
         return firstName;
     }
 
-    public static ArrayList<ExerciseListElement> getExerciseList(String searchFor, int sortBy) {
-        ArrayList<ExerciseListElement> exerciseList = new ArrayList<ExerciseListElement>();
+    public static ArrayList<exercise.ExerciseObject> getExerciseList(String searchFor, int sortBy) {
+        ArrayList<exercise.ExerciseObject> exerciseList = new ArrayList<exercise.ExerciseObject>();
         ConnectionClass connectionClass = new ConnectionClass();
         Connection con = connectionClass.CONN();
 
@@ -83,7 +85,7 @@ public class ConnectionClass {
             ResultSet rs = preparedQuery.executeQuery();
 
             while (rs.next()) {
-                ExerciseListElement ob = new ExerciseListElement();
+                ExerciseObject ob = new ExerciseObject();
                 ob.setExerciseId(rs.getInt(1));
                 ob.setExerciseName(rs.getString(2));
                 exerciseList.add (ob);
@@ -94,12 +96,34 @@ public class ConnectionClass {
             e.printStackTrace();
         }
 
-
-
         return exerciseList;
     }
 
-    public static ArrayList<ExerciseListElement> getExerciseList() {
+    public static ArrayList<exercise.ExerciseObject> getExerciseList() {
         return getExerciseList("", 0);
+    }
+
+    public static ExerciseDetail getExerciseDetail(int id) {
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection con = connectionClass.CONN();
+        String query = "select * from [Exercise] where ExerciseID='" + id + "'";
+        ExerciseDetail exerciseDetail = new ExerciseDetail(id);
+
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                exerciseDetail.setExerciseDesc(rs.getString("ExerciseDesc"));
+                exerciseDetail.setExerciseName(rs.getString("ExerciseName"));
+                exerciseDetail.setCreateDate(rs.getString("CreateDate"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("ConnectionClass", "ExerciseName is " + exerciseDetail.getExerciseName());
+        return exerciseDetail;
     }
 }

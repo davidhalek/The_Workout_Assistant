@@ -118,6 +118,8 @@ public class ConnectionClass {
                 exerciseDetail.setExerciseDesc(rs.getString("ExerciseDesc"));
                 exerciseDetail.setExerciseName(rs.getString("ExerciseName"));
                 exerciseDetail.setCreateDate(rs.getString("CreateDate"));
+                exerciseDetail.setExerciseInstructions(rs.getString("Instructions"));
+                exerciseDetail.setVideoId(rs.getString("VideoLink"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

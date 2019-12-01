@@ -4,13 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import david.halek.theworkoutassistant.R;
+
+import static david.halek.theworkoutassistant.ConnectionClass.getExerciseDetail;
 
 /**
  * Activities that contain this fragment must implement the
@@ -22,17 +28,27 @@ import david.halek.theworkoutassistant.R;
 public class ExerciseFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "userId";
+    private static final String ARG_PARAM2 = "exerciseId";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int exerciseId = -998;
+    private int userId = 11;
 
     private OnFragmentInteractionListener mListener;
+    ExerciseDetail exerciseDetail;
+
+    EditText editName;
+    EditText editDesc;
+    EditText editInstructions;
+    EditText editVideo;
 
     public ExerciseFragment() {
         // Required empty public constructor
+    }
+
+    public ExerciseFragment(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 
     /**
@@ -44,11 +60,12 @@ public class ExerciseFragment extends Fragment {
      * @return A new instance of fragment ExerciseFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ExerciseFragment newInstance(String param1, String param2) {
-        ExerciseFragment fragment = new ExerciseFragment();
+    public static ExerciseFragment newInstance(int exerciseID) {
+//        this.exerciseId = exerciseID;
+        ExerciseFragment fragment = new ExerciseFragment(exerciseID);
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PARAM1, 12);
+        args.putInt(ARG_PARAM2, exerciseID);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,9 +73,10 @@ public class ExerciseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Context context = getContext();
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            userId = getArguments().getInt(ARG_PARAM1);
+            exerciseId = getArguments().getInt(ARG_PARAM2);
         }
     }
 
@@ -67,6 +85,18 @@ public class ExerciseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_exercise, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        View v = view;
+        Log.e("Exercise", "Frag - exercise ID should be: " + exerciseId);
+        editName = (EditText)v.findViewById(R.id.editExerciseName);
+        editDesc = (EditText)v.findViewById(R.id.editDescription);
+        editInstructions = (EditText)v.findViewById(R.id.editInstructions);
+        editVideo = (EditText)v.findViewById(R.id.editVideo);
+        updateScreen();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -106,5 +136,14 @@ public class ExerciseFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    public void updateScreen() {
+        exerciseDetail = (ExerciseDetail) getExerciseDetail(exerciseId);
+        editInstructions.setText(exerciseDetail.getExerciseInstructions());
+        editDesc.setText(exerciseDetail.getExerciseDesc());
+        editName.setText(exerciseDetail.getExerciseName());
+        editVideo.setText(exerciseDetail.getVideoId());
     }
 }

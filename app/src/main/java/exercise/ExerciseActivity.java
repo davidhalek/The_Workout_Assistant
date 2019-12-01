@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import david.halek.theworkoutassistant.R;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 import static david.halek.theworkoutassistant.ConnectionClass.getExerciseList;
 
-public class ExerciseActivity extends AppCompatActivity {
+public class ExerciseActivity extends AppCompatActivity implements ExerciseFragment.OnFragmentInteractionListener {
     int userId = 12; // Todo: get userID from bundle passed by main activity
     private ArrayList exerciseList;
     RecyclerView recyclerView;
@@ -36,5 +37,15 @@ public class ExerciseActivity extends AppCompatActivity {
 
         adapter = new RecyclerAdapter(exerciseList);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

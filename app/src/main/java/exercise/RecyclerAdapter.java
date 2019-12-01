@@ -11,6 +11,8 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import david.halek.theworkoutassistant.R;
 
@@ -52,16 +54,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             textView = itemView.findViewById(R.id.txt_exercise);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    Snackbar.make(v,"Click detected on item " + position,
-                            Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    ExerciseObject ob = (ExerciseObject)exerciseList.get(position);
-                    Log.e("Exercise", "Selected: " + ob.getExerciseName());
-                    ExerciseDetail details = (ExerciseDetail)getExerciseDetail(ob.getExerciseId());
-                    Log.e("Exercise", "From query: " + details.getExerciseName());
+                    openExerciseDetail(v);
                 }
             });
+        }
+
+        public void openExerciseDetail(View v) {
+            int position = getAdapterPosition();
+            Snackbar.make(v,"Click detected on item " + position,
+                    Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            ExerciseObject ob = (ExerciseObject)exerciseList.get(position);
+            Log.e("Exercise", "Selected: " + ob.getExerciseName());
+            ExerciseDetail details = (ExerciseDetail)getExerciseDetail(ob.getExerciseId());
+            Log.e("Exercise", "From query: " + details.getExerciseName());
+
+            AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
+            Fragment myFragment = new ExerciseFragment(ob.getExerciseId());
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.layoutExerciseFragment, myFragment).addToBackStack(null).commit();
         }
     }
 }

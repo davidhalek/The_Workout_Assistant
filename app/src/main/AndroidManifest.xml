@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="exercise.ExerciseActivity"></activity>
+        <activity
+            android:name=".Routine.RoutineActivity"
+            android:label="Exercise Routines"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name="exercise.ExerciseActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />

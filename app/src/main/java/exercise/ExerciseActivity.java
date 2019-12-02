@@ -6,7 +6,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import david.halek.theworkoutassistant.R;
+import david.halek.theworkoutassistant.Routine.RoutineActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,10 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
         recyclerView = (RecyclerView) findViewById(R.id.recyclerExercise);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        //
+        // Setup Tabs
+        //
 
         if (exerciseList == null) {
             Log.e("Exercise", "Activity retrieving exercise list");
@@ -59,6 +66,44 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
                 ft.commit();
             }
         });
+
+        configureTabLayout();
+    }
+
+    public void configureTabLayout() {
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.getTabAt(2).select();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch(tab.getPosition()) {
+                    case 0:
+                        Log.e("Routine", "Trainees Tab Selected");
+                        break;
+                    case 1:
+                        Intent intent = new Intent(getApplicationContext(), RoutineActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        Log.e( "Routine", "Exercises");
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+//        TabLayout.Tab tab = (TabLayout.Tab) findViewById(R.id.tabRoutines);
+//        TabLayout.Tab tab = (TabLayout.Tab) tabLayout.findViewById(R.id.tabRoutines);
+
     }
 
     public void updateList() {

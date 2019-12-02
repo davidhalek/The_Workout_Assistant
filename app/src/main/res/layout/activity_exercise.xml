@@ -12,6 +12,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/toolbarRoutines"
+            layout="@layout/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
         <FrameLayout
             android:id="@+id/layoutExerciseFragment"
             android:layout_width="match_parent"
@@ -19,14 +27,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </FrameLayout>
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerExercise"
@@ -42,9 +42,25 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<androidx.appcompat.widget.Toolbar-->
+<!--android:id="@+id/toolbar2"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="0dp"-->
+<!--android:background="?attr/colorPrimary"-->
+<!--android:minHeight="?attr/actionBarSize"-->
+<!--android:theme="?attr/actionBarTheme" />-->
+
+
+
+
+
+
+
+
+<!--    android:clickable="true"-->

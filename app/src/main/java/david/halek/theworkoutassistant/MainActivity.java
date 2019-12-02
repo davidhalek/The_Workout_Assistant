@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import david.halek.theworkoutassistant.Routine.RoutineActivity;
 import david.halek.theworkoutassistant.dummy.DummyContent;
 import exercise.ExerciseActivity;
 
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements FragExerciseList.
         setContentView(R.layout.activity_main);
 
         // TODO: fix this to make exercise a menu option
-        Intent intent = new Intent(this, ExerciseActivity.class);
+//        Intent intent = new Intent(this, ExerciseActivity.class);
+        Intent intent = new Intent(this, RoutineActivity.class);
         startActivity(intent);
 //         Don't need this, defining toolbar in xml
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

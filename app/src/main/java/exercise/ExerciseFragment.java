@@ -138,7 +138,7 @@ public class ExerciseFragment extends Fragment {
                 }
                 Log.e("Exercise", "s is " + column + ", value is " + box.getText());
                 updateExerciseDetail(exerciseId, column, box.getText().toString());
-            }
+            } // TODO add update list code here to fix recycler
         }
     }
 

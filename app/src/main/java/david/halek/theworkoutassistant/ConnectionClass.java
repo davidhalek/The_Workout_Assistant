@@ -154,4 +154,49 @@ public class ConnectionClass {
 //        return exerciseDetail;
 
     }
+
+    public static boolean checkIfValidExerciseName(String name) {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection con = connectionClass.CONN();
+        String query = "SELECT * FROM [Exercise] WHERE [ExerciseName] = ?";
+        ResultSet rs = null;
+        try {
+            PreparedStatement preparedQuery = con.prepareStatement(query);
+            preparedQuery.setString( 1, name);
+            Log.e("PREPARED", preparedQuery.toString());
+            rs = preparedQuery.executeQuery();
+            if (!rs.isBeforeFirst() ) {
+                Log.e("Result", "Name is "+name+", ResultSet is: false");
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Log.e("Result", "Name is "+name+", ResultSet is: true");
+        return false;
+
+    }
+
+    public static boolean addExercise(String name, String desc, String instruct, String video) {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection con = connectionClass.CONN();
+
+        String query = "INSERT INTO [Exercise] ([ExerciseName], [ExerciseDesc], [Instructions], [VideoLink]) VALUES (?, ?, ?, ?)";
+        int result = -1;
+
+        try {
+            PreparedStatement preparedQuery = con.prepareStatement(query);
+            preparedQuery.setString( 1, name);
+            preparedQuery.setString( 2, desc);
+            preparedQuery.setString( 3, instruct);
+            preparedQuery.setString( 4, video);
+            Log.e("PREPARED", preparedQuery.toString());
+            result = preparedQuery.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("ConnectionClass", "Update result for "+name+" is: "+result);
+        return (result > 0 ? true : false);
+    }
 }

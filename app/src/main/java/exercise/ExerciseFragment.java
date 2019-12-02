@@ -1,5 +1,6 @@
 package exercise;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -87,6 +88,8 @@ public class ExerciseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+//        LayoutParams layoutParams = new LayoutParams( LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+
         return inflater.inflate(R.layout.fragment_exercise, container, false);
     }
 

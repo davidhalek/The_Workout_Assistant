@@ -1,6 +1,8 @@
 package exercise;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import david.halek.theworkoutassistant.R;
@@ -46,10 +48,23 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Creating Add Exercise Fragment", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+//                AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
+                Fragment myFragment = new AddExerciseFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.add(R.id.linearLayout, myFragment);
+                ft.replace(R.id.layoutExerciseFragment, myFragment);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
+    }
+
+    public void updateList() {
+        exerciseList = getExerciseList();
+        Log.e("Exercise", "updateList() called.");
+        adapter.notifyDataSetChanged();
     }
 
     @Override

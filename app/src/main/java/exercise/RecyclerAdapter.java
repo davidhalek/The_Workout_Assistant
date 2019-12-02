@@ -1,9 +1,11 @@
 package exercise;
 
+import android.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,9 +77,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             Fragment myFragment = new ExerciseFragment(ob.getExerciseId());
 
             FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+//            ft.add(R.id.linearLayout, myFragment);
             ft.add(R.id.layoutExerciseFragment, myFragment);
             ft.addToBackStack(null);
             ft.commit();
+
+            // Resize frame
+//            try {
+//                FrameLayout frame = (FrameLayout)activity.findViewById(R.id.layoutExerciseFragment);
+////            ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+//                frame.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
     }
 }

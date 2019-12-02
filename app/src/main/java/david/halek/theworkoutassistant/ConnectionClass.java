@@ -128,4 +128,30 @@ public class ConnectionClass {
         Log.e("ConnectionClass", "ExerciseName is " + exerciseDetail.getExerciseName());
         return exerciseDetail;
     }
+
+
+    public static void updateExerciseDetail(int id, String column, String value) {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection con = connectionClass.CONN();
+
+        ExerciseDetail exerciseDetail = new ExerciseDetail(id);
+        String query = "UPDATE [Exercise] SET [?] = '?' WHERE [ExerciseID] = " + id ;
+        String badQuery = "UPDATE [Exercise] SET [" + column + "] = ? WHERE [ExerciseID] = " + id ;
+//        searchFor = "%" + searchFor + "%";
+        try {
+            Log.e("PREPARED-", badQuery);
+            PreparedStatement preparedQuery = con.prepareStatement( badQuery);
+            preparedQuery.setString( 1, value);
+            int rs = preparedQuery.executeUpdate();
+            Log.e ("PREPARED", "rs is: "+ (rs >= 1 ? "true" : "false"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("ConnectionClass", "ID is " + id +
+                ", ColumnName is " + column + ", value is " + value);
+//        return exerciseDetail;
+
+    }
 }

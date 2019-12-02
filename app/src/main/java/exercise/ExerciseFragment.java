@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import david.halek.theworkoutassistant.R;
 
 import static david.halek.theworkoutassistant.ConnectionClass.getExerciseDetail;
+import static david.halek.theworkoutassistant.ConnectionClass.updateExerciseDetail;
 
 /**
  * Activities that contain this fragment must implement the
@@ -55,8 +58,8 @@ public class ExerciseFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * //@param exerciseId Parameter 1.
+     * //@param userId Parameter 2.
      * @return A new instance of fragment ExerciseFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -97,6 +100,43 @@ public class ExerciseFragment extends Fragment {
         editInstructions = (EditText)v.findViewById(R.id.editInstructions);
         editVideo = (EditText)v.findViewById(R.id.editVideo);
         updateScreen();
+        editName.setOnFocusChangeListener(new MySetOnFocusChangeListener(editName));
+        editVideo.setOnFocusChangeListener(new MySetOnFocusChangeListener(editVideo));
+        editDesc.setOnFocusChangeListener(new MySetOnFocusChangeListener(editDesc));
+        editInstructions.setOnFocusChangeListener(new MySetOnFocusChangeListener(editInstructions));
+    }
+
+    private class MySetOnFocusChangeListener implements View.OnFocusChangeListener {
+        private View view;
+
+        private MySetOnFocusChangeListener(View view) {
+            this.view = view;
+        }
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (!hasFocus) {
+                int id = v.getId();
+                String column = "";
+                EditText box = (EditText) v;
+
+                switch (id) {
+                    case R.id.editExerciseName:
+                        column = "ExerciseName";
+                        break;
+                    case R.id.editDescription:
+                        column = "ExerciseDesc";
+                        break;
+                    case R.id.editInstructions:
+                        column = "Instructions";
+                        break;
+                    case R.id.editVideo:
+                        column = "VideoLink";
+                        break;
+                }
+                Log.e("Exercise", "s is " + column + ", value is " + box.getText());
+                updateExerciseDetail(exerciseId, column, box.getText().toString());
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import david.halek.theworkoutassistant.R;
 
@@ -71,7 +72,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
             Fragment myFragment = new ExerciseFragment(ob.getExerciseId());
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.layoutExerciseFragment, myFragment).addToBackStack(null).commit();
+
+            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.layoutExerciseFragment, myFragment);
+            ft.addToBackStack(null);
+            ft.commit();
         }
     }
 }

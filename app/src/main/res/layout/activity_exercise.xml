@@ -12,13 +12,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/toolbarRoutines"
-            layout="@layout/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+        <include layout="@layout/my_toolbar"/>
+
+<!--        <include-->
+<!--            android:id="@+id/toolbarRoutines"-->
+<!--            android:layout="@layout/my_toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:layout_editor_absoluteX="0dp"-->
+<!--            tools:layout_editor_absoluteY="0dp" />-->
 
         <FrameLayout
             android:id="@+id/layoutExerciseFragment"

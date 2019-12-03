@@ -38,9 +38,11 @@ public class RoutineObject {
 
     public RoutineObject(int id) {
 
-        String query = "SELECT "+ ROUTINE_ID_COLUMN + ", " + ROUTINE_NAME_COLUMN + ", " + ROUTINE_DESC_COLUMN + ", " + ROUTINE_CREATE_DATE_COLUMN +
+        String query = "SELECT * " +
+                //"SELECT "+ ROUTINE_ID_COLUMN + ", " + ROUTINE_NAME_COLUMN + ", " + ROUTINE_DESC_COLUMN + ", " + ROUTINE_CREATE_DATE_COLUMN +
                 "FROM "+ TABLE_NAME +
-                "ORDER BY " + ROUTINE_ID_COLUMN;
+                " WHERE " + ROUTINE_ID_COLUMN +" = " + id;
+                //"ORDER BY " + ROUTINE_ID_COLUMN ;
 
         ConnectionClass connectionClass = new ConnectionClass();
         Connection con = connectionClass.CONN();
@@ -51,12 +53,13 @@ public class RoutineObject {
             ResultSet rs = preparedQuery.executeQuery();
 
             while (rs.next()) {
+                Log.e("Testing", "There is an rs.next() in RoutineObject(id)");
                 this.setExerciseRoutineId(rs.getInt(1));
                 this.setExerciseRoutineName(rs.getString(2));
                 this.setExerciseRoutineDesc(rs.getString(3));
                 this.setCreateDate(rs.getString(4));
 
-                Log.d("Testing", this.exerciseRoutineId + "\t"+this.exerciseRoutineName); // TODO remove
+                Log.e("Testing", this.exerciseRoutineId + "\t"+this.exerciseRoutineName); // TODO remove
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -64,7 +64,7 @@ public class RoutineActivity extends AppCompatActivity implements AddRoutineFrag
                 Fragment myFragment = new AddRoutineFragment();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 //            ft.add(R.id.linearLayout, myFragment);
-                ft.replace(R.id.coordinatorLayout, myFragment);
+                ft.replace(R.id.layoutAddExerciseRoutine, myFragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -108,6 +108,10 @@ public class RoutineActivity extends AppCompatActivity implements AddRoutineFrag
         });
 //        TabLayout.Tab tab = (TabLayout.Tab) findViewById(R.id.tabRoutines);
 //        TabLayout.Tab tab = (TabLayout.Tab) tabLayout.findViewById(R.id.tabRoutines);
+
+    }
+
+    public void loadRoutineDetails(int id) {
 
     }
 

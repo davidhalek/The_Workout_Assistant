@@ -1,10 +1,14 @@
 package david.halek.theworkoutassistant.Routine;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -21,8 +25,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import david.halek.theworkoutassistant.R;
 
 import static david.halek.theworkoutassistant.ConnectionClass.getExerciseDetail;
+import static david.halek.theworkoutassistant.Routine.RoutineEditFragment.newInstance;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+    private static final String ARG_ROUTINE_ID = "routineId";
     private ArrayList<RoutineObject> routineList;
 
     public RecyclerAdapter(ArrayList<RoutineObject> routineList) {
@@ -68,37 +74,32 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             });
         }
 
+
+
         public void openRoutineDetail(View v) {
             int position = getAdapterPosition();
+            int id = -1;
             Snackbar.make(v,"Click detected on item " + position,
                     Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             RoutineObject ob = (RoutineObject)routineList.get(position);
             Log.e("Exercise", "Selected: " + ob.getExerciseRoutineName());
-            RoutineObject details = new RoutineObject(ob.getExerciseRoutineId());
-            Log.e("Exercise", "From query: " + details.getExerciseRoutineName());
+            id = (int)ob.getExerciseRoutineId();
+            Log.e("Exercise", "From query: " + ob.getExerciseRoutineName());
 
-// ///////////////////////////////////////////////////////////////////////
-// ///////////////////////////////////////////////////////////////////////
-// ///////////////////////////////////////////////////////////////////////
-// ///////////////////////////////////////////////////////////////////////
-            // TODO add these back in
-            // Open fragment
+
+            // Load the fragment
             AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
-//            Fragment myFragment = new AddRoutineFragment(ob.getExerciseRoutineId());
-//            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-//            ft.add(R.id.layoutExerciseFragment, myFragment);
-//            ft.addToBackStack(null);
-//            ft.commit();
+            Fragment frag = new RoutineEditFragment(id);
+            Bundle args = new Bundle();
+            args.putInt(ARG_ROUTINE_ID, id);
+            frag.setArguments(args);
+            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+            Log.e("Routine", "Routine ID is: " + id);
+            ft.add(R.id.layoutAddExerciseRoutine, frag);
+            ft.addToBackStack(null);
+            ft.commit();
 
-            // Resize frame
-//            try {
-//                FrameLayout frame = (FrameLayout)activity.findViewById(R.id.layoutExerciseFragment);
-////            ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-//                frame.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
         }
     }
 }

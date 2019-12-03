@@ -35,6 +35,8 @@ public class RoutineEditFragment extends Fragment {
     private static final String ARG_ROUTINE_ID = "routineId";
     private RoutineDetailObject detailObject;
 
+    public int exerciseSelected = -1;
+
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
@@ -106,7 +108,8 @@ public class RoutineEditFragment extends Fragment {
             Log.e("Routine", "ExerciseRecycler: Fragment retrieved: "+exerciseList.size());
         }
 
-        adapter = new ExerciseRecycler(exerciseList);
+
+        adapter = new ExerciseRecycler(exerciseList, RoutineEditFragment.this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -147,5 +150,10 @@ public class RoutineEditFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void setExerciseSelected(int id) {
+        exerciseSelected = id;
+        Log.e("RoutineEditFragment", "exerciseSelected: "+id);
     }
 }

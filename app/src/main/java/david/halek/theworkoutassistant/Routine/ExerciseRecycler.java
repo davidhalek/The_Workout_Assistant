@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,9 +24,14 @@ import exercise.ExerciseObject;
 public class ExerciseRecycler extends RecyclerView.Adapter<ExerciseRecycler.ViewHolder> {
 //    private static final String ARG_ROUTINE_ID = "routineId";
     private ArrayList<ExerciseObject> exerciseList;
+    private int selectedPos = RecyclerView.NO_POSITION;
+    private int selectedId = -1;
+    View lastView = null;
+    RoutineEditFragment myFragment;
 
-    public ExerciseRecycler(ArrayList<ExerciseObject> exerciseList) {
+    public ExerciseRecycler(ArrayList<ExerciseObject> exerciseList, RoutineEditFragment myFragment) {
         this.exerciseList = exerciseList;
+        this.myFragment = myFragment;
     }
 
     @NonNull
@@ -37,16 +43,11 @@ public class ExerciseRecycler extends RecyclerView.Adapter<ExerciseRecycler.View
 
         return viewHolder;
     }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull Exercise.RecyclerAdapter.ViewHolder holder, int position) {
-//        ExerciseObject ob = (ExerciseObject)exerciseList.get(position);
-//        Log.e("ROUTINE", "ExerciseRecycler Name is: " + ob.getExerciseName());
-//        holder.txt.setText(ob.getExerciseName());
-//    }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.itemView.setSelected(selectedPos == position);
+//        holder.itemView.setSelected(selectedPos == position);
         ExerciseObject ob = (ExerciseObject)exerciseList.get(position);
         Log.e("ROUTINE", "ExerciseRecycler Name is: " + ob.getExerciseName());
         holder.txtExerciseName.setText(ob.getExerciseName().toString());
@@ -71,27 +72,27 @@ public class ExerciseRecycler extends RecyclerView.Adapter<ExerciseRecycler.View
         }
 
         public void exerciseSelected(View v) {
+
+            // Switch previously selected item to unselected
+            if (lastView != null) {
+                lastView.setBackgroundResource(R.drawable.smaller_rectangle);
+//                notifyItemChanged(selectedPos);
+            }
+
+            // Select current item
+            v.setBackgroundResource(R.drawable.smaller_rectangle_selected);
+            lastView = v;
+//            selectedPos = getLayoutPosition();
+//            notifyItemChanged(selectedPos);
+
             int position = getAdapterPosition();
-            int id = -1;
-            Snackbar.make(v,"Click detected on item " + position,
-                    Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+//            Snackbar.make(v,"Click detected on item " + position,
+//                    Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
             ExerciseObject ob = (ExerciseObject) exerciseList.get(position);
-            id = (int)ob.getExerciseId();
-            Log.e("ExerciseRecycler", "Selected: id is: " + id + " name is: " + ob.getExerciseName());
-
-//            // Load the fragment
-//            AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
-//            Fragment frag = new RoutineEditFragment(id);
-//            Bundle args = new Bundle();
-//            args.putInt(ARG_ROUTINE_ID, id);
-//            frag.setArguments(args);
-//            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-//            Log.e("Routine", "Routine ID is: " + id);
-//            ft.add(R.id.layoutAddExerciseRoutine, frag);
-//            ft.addToBackStack(null);
-//            ft.commit();
-
+            selectedId = (int)ob.getExerciseId();
+            Log.e("ExerciseRecycler", "Selected: id is: " + selectedId + " name is: " + ob.getExerciseName());
+            myFragment.setExerciseSelected(selectedId);
         }
     }
 }

@@ -39,9 +39,6 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        //
-        // Setup Tabs
-        //
 
         if (exerciseList == null) {
             Log.e("Exercise", "Activity retrieving exercise list");
@@ -51,6 +48,8 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
 
         adapter = new RecyclerAdapter(exerciseList);
         recyclerView.setAdapter(adapter);
+
+        // floating action button
         floatingActionButton = (FloatingActionButton)findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +68,10 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
 
         configureTabLayout();
     }
+
+    //
+    // Setup Tabs
+    //
 
     public void configureTabLayout() {
         TabLayout tabLayout = findViewById(R.id.tabs);

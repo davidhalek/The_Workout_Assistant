@@ -23,9 +23,9 @@ import david.halek.theworkoutassistant.R;
 import static david.halek.theworkoutassistant.ConnectionClass.getExerciseDetail;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    private ArrayList routineList;
+    private ArrayList<RoutineObject> routineList;
 
-    public RecyclerAdapter(ArrayList routineList) {
+    public RecyclerAdapter(ArrayList<RoutineObject> routineList) {
         this.routineList = routineList;
     }
 
@@ -33,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.exercise_text_view, parent, false);
+                .inflate(R.layout.routine_card_layout, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
 
         return viewHolder;
@@ -42,7 +42,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RoutineObject ob = (RoutineObject)routineList.get(position);
-        holder.textView.setText(ob.getExerciseRoutineName());
+        Log.e("ROUTINE", "RecyclerAdapter Name is: " + ob.getExerciseRoutineName());
+//                onBindViewHolder ob type is: "+ob.toString());
+        holder.txtRoutineName.setText(ob.getExerciseRoutineName());
+        holder.txtRoutineDesc.setText(ob.getExerciseRoutineDesc());
     }
 
     @Override
@@ -51,11 +54,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public TextView txtRoutineName;
+        public TextView txtRoutineDesc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.txt_exercise);
+            txtRoutineName = itemView.findViewById(R.id.txtRoutineName);
+            txtRoutineDesc = itemView.findViewById(R.id.txtRoutineDesc);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     openRoutineDetail(v);

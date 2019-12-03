@@ -1,16 +1,27 @@
 package david.halek.theworkoutassistant.Routine;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.fragment.app.FragmentTransaction;
 import david.halek.theworkoutassistant.R;
+
+import static david.halek.theworkoutassistant.Routine.RoutineObject.addExerciseRoutine;
+import static david.halek.theworkoutassistant.Routine.RoutineObject.checkIfValidRoutineName;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +40,9 @@ public class AddRoutineFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private int userId;
     private String mParam2;
+
+    EditText editName;
+    EditText editDesc;
 
     private OnFragmentInteractionListener mListener;
 
@@ -75,6 +89,43 @@ public class AddRoutineFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(v, savedInstanceState);
+
+        editName = (EditText)v.findViewById(R.id.editExerciseRoutineName);
+        editDesc = (EditText)v.findViewById(R.id.editExerciseRoutineDesc);
+
+        final Button btnAddExerciseRoutine = (Button) v.findViewById(R.id.btnSaveNewRoutine);
+
+        btnAddExerciseRoutine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editName.getText().toString();
+                String desc = editDesc.getText().toString();
+
+                if (name.length() < 1) {
+                    Snackbar.make(v, "Exercise routine name cannot be empty.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else if (!checkIfValidRoutineName(name)) {
+                    Snackbar.make(v, "Exercise routine name must be unique - this routine already exists.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    boolean success = addExerciseRoutine(name, desc);
+                    Snackbar.make(v, "Adding exercise routine "+name+".  Success: "+success, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    if (success) {
+                        editDesc.setText("");
+                        editName.setText("");
+                        // TODO force recycler to update, and exit this fragment
+                        Activity a = getActivity();
+                    }
+                }
+            }
+        });
     }
 
     @Override

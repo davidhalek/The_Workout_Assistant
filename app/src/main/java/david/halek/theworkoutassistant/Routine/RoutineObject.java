@@ -75,7 +75,7 @@ public class RoutineObject {
     public static ArrayList<RoutineObject> getRoutineList() {
 
         ArrayList routineList = new ArrayList();
-        String query = "SELECT "+ ROUTINE_ID_COLUMN + ", " + ROUTINE_NAME_COLUMN +
+        String query = "SELECT "+ ROUTINE_ID_COLUMN + ", " + ROUTINE_NAME_COLUMN + ", " + ROUTINE_DESC_COLUMN +
                 "FROM "+ TABLE_NAME +
                 "ORDER BY " + ROUTINE_ID_COLUMN;
 
@@ -91,7 +91,8 @@ public class RoutineObject {
                 RoutineObject ob = new RoutineObject();
                 ob.setExerciseRoutineId(rs.getInt(1));
                 ob.setExerciseRoutineName(rs.getString(2));
-                Log.d("Testing", ob.getExerciseRoutineId() + "\t"+ob.getExerciseRoutineName()); // TODO remove
+                ob.setExerciseRoutineDesc(rs.getString(3));
+                Log.e("Routine", ob.getExerciseRoutineId() + "\t"+ob.getExerciseRoutineName()); // TODO remove
                 routineList.add(ob);
             }
         } catch (SQLException e) {
@@ -101,7 +102,7 @@ public class RoutineObject {
         return routineList;
     }
 
-    public boolean addExerciseRoutine(String name, String desc) {
+    public static boolean addExerciseRoutine(String name, String desc) {
         ConnectionClass connectionClass = new ConnectionClass();
         Connection con = connectionClass.CONN();
 

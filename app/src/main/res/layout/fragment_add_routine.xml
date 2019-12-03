@@ -46,7 +46,7 @@
         tools:layout_editor_absoluteX="49dp" />
 
     <Button
-        android:id="@+id/btnAddExerciseRoutine"
+        android:id="@+id/btnSaveNewRoutine"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

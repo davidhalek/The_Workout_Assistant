@@ -26,12 +26,6 @@
             app:tabMode="scrollable">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabTrainees"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trainees" />
-
-            <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabRoutines"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,6 +41,17 @@
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!--<com.google.android.material.tabs.TabItem-->
+<!--android:id="@+id/tabTrainees"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:text="Trainees" />-->
+
+
+
+
+
 
     <!--            android:layout_height="?attr/actionBarSize"-->
 

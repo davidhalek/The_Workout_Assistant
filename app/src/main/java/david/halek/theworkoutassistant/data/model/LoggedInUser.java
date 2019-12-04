@@ -5,15 +5,15 @@ package david.halek.theworkoutassistant.data.model;
  */
 public class LoggedInUser {
 
-    private String userId;
+    private int userId;
     private String displayName;
 
-    public LoggedInUser(String userId, String displayName) {
+    public LoggedInUser(int userId, String displayName) {
         this.userId = userId;
         this.displayName = displayName;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 

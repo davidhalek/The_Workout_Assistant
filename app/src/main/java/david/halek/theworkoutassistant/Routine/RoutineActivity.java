@@ -75,19 +75,19 @@ public class RoutineActivity extends AppCompatActivity implements AddRoutineFrag
 
     public void configureTabLayout() {
         TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.getTabAt(1).select();
+        tabLayout.getTabAt(0).select();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch(tab.getPosition()) {
-                    case 0:
+                    case 3:
                         Log.e("Routine", "Trainees Tab Selected");
                         break;
-                    case 1:
+                    case 0:
                         Log.e( "Routine", "Routines");
                         break;
-                    case 2:
+                    case 1:
                         Log.e( "Routine", "Exercises");
                         Intent intent = new Intent(getApplicationContext(), ExerciseActivity.class);
                         Log.e( "Routine", "Exercises");

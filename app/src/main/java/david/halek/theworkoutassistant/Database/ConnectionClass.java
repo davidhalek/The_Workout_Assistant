@@ -46,6 +46,34 @@ public class ConnectionClass {
         return conn;
     }
 
+    public static int validateLogin(String username, String password) {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection con = connectionClass.CONN();
+        int userid = -1;
+
+        String query = "select [UserID], [Password] from [User] where [LogonD] = ?";
+
+        try {
+            PreparedStatement preparedQuery = con.prepareStatement(query);
+            preparedQuery.setString( 1, username);
+
+            ResultSet rs = preparedQuery.executeQuery();
+
+            if (rs.next()) {
+                if (rs.getString("Password").equals(password)) {
+                    userid = rs.getInt("UserID");
+                    Log.e("-----LOGIN-----", "Successful: " + userid);
+                } else {
+                    Log.e("-----LOGIN-----", "FAILED: " + userid);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userid;
+    }
+
     public static String getFirstName(int id) {
 
         ConnectionClass connectionClass = new ConnectionClass();

@@ -5,6 +5,7 @@ package david.halek.theworkoutassistant.ui.login;
  */
 class LoggedInUserView {
     private String displayName;
+    private int userId;
     //... other data fields that may be accessible to the UI
 
     LoggedInUserView(String displayName) {
@@ -14,4 +15,7 @@ class LoggedInUserView {
     String getDisplayName() {
         return displayName;
     }
+
+    int getUserId() { return userId; }
+    void setUserId(int userId) { this.userId = userId; }
 }

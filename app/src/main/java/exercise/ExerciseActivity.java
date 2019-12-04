@@ -75,20 +75,20 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
 
     public void configureTabLayout() {
         TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.getTabAt(2).select();
+        tabLayout.getTabAt(1).select();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch(tab.getPosition()) {
-                    case 0:
+                    case 3:
                         Log.e("Routine", "Trainees Tab Selected");
                         break;
-                    case 1:
+                    case 0:
                         Intent intent = new Intent(getApplicationContext(), RoutineActivity.class);
                         startActivity(intent);
                         break;
-                    case 2:
+                    case 1:
                         Log.e( "Routine", "Exercises");
                         break;
                 }
@@ -110,6 +110,7 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
     }
 
     public void updateList() {
+
         exerciseList = getExerciseList();
         Log.e("Exercise", "updateList() called.");
         adapter.notifyDataSetChanged();

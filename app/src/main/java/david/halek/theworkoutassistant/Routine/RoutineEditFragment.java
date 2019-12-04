@@ -40,16 +40,22 @@ public class RoutineEditFragment extends Fragment {
     private RoutineDetailObject detailObject;
 
     public int exerciseSelected = -1;
+    public int detailsSelected = -1;
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
+
+    RecyclerView detailsRecyclerView;
+    RecyclerView.LayoutManager detailsLayoutManager;
+    RecyclerView.Adapter detailsAdapter;
 
     EditText editSets;
     EditText editReps;
     EditText editDuration;
 
     ArrayList<ExerciseObject> exerciseList;
+    ArrayList<RoutineDetailObject> detailsList;
 
     private int routineId = -1;
 
@@ -93,11 +99,11 @@ public class RoutineEditFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (routineId == -1) {
-            Log.e("Details", "RoutineEditFragment does NOT have routine set!");
-        } else {
-            Log.e("Details", "RoutineEditFragment has routineId of: "+routineId);
-        }
+//        if (routineId == -1) {
+//            Log.e("Details", "RoutineEditFragment does NOT have routine set!");
+//        } else {
+//            Log.e("Details", "RoutineEditFragment has routineId of: "+routineId);
+//        }
 
         RoutineObject ob = new RoutineObject(routineId);
         TextView name = (TextView) view.findViewById(R.id.txtRoutineName);
@@ -111,14 +117,27 @@ public class RoutineEditFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         if (exerciseList == null) {
-            Log.e("Routine", "ExerciseRecycler: Fragment retrieving routineList");
             exerciseList = ConnectionClass.getExerciseList();
-            Log.e("Routine", "ExerciseRecycler: Fragment retrieved: "+exerciseList.size());
+//            Log.e("Routine", "ExerciseRecycler: Fragment retrieved: "+exerciseList.size());
         }
-
 
         adapter = new ExerciseRecycler(exerciseList, RoutineEditFragment.this);
         recyclerView.setAdapter(adapter);
+
+        // Setup details list recyclerview
+        if (detailsList == null) {
+            detailsList = RoutineDetailObject.getDetailsList();
+//            Log.e("detailsList", "detailsList size: "+detailsList.size());
+        }
+
+//        detailsRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerExercisesInRoutine);
+//        detailsLayoutManager = new LinearLayoutManager(getContext());
+//        detailsRecyclerView.setLayoutManager(detailsLayoutManager);
+//        detailsAdapter = new DetailsRecycler(detailsList, RoutineEditFragment.this);
+//        detailsRecyclerView.setAdapter(detailsAdapter);
+
+
+
 
         // Set click event for first button
         Button button = view.findViewById(R.id.btnAddExerciseToRoutine);
@@ -234,5 +253,11 @@ public class RoutineEditFragment extends Fragment {
     public void setExerciseSelected(int id) {
         exerciseSelected = id;
         Log.e("RoutineEditFragment", "exerciseSelected: "+id);
+    }
+
+    public void setDetailSelected(int id) {
+        detailsSelected = id;
+        Log.e("RoutineEditFragment", "detailSelected: "+id);
+
     }
 }

@@ -19,12 +19,15 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import david.halek.theworkoutassistant.ConnectionClass;
 import david.halek.theworkoutassistant.R;
 import exercise.ExerciseObject;
+
+import static david.halek.theworkoutassistant.Routine.RoutineDetailObject.deleteDetail;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +44,7 @@ public class RoutineEditFragment extends Fragment {
 
     public int exerciseSelected = -1;
     public int detailsSelected = -1;
+    public int detailsPosition = -1;
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -130,11 +134,11 @@ public class RoutineEditFragment extends Fragment {
 //            Log.e("detailsList", "detailsList size: "+detailsList.size());
         }
 
-//        detailsRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerExercisesInRoutine);
-//        detailsLayoutManager = new LinearLayoutManager(getContext());
-//        detailsRecyclerView.setLayoutManager(detailsLayoutManager);
-//        detailsAdapter = new DetailsRecycler(detailsList, RoutineEditFragment.this);
-//        detailsRecyclerView.setAdapter(detailsAdapter);
+        detailsRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerExercisesInRoutine);
+        detailsLayoutManager = new LinearLayoutManager(getContext());
+        detailsRecyclerView.setLayoutManager(detailsLayoutManager);
+        detailsAdapter = new DetailsRecyclerAdapter(detailsList, RoutineEditFragment.this);
+        detailsRecyclerView.setAdapter(detailsAdapter);
 
 
 
@@ -177,13 +181,14 @@ public class RoutineEditFragment extends Fragment {
                 addExerciseToRoutine(v);
                 break;
             case R.id.btnDeleteExercise:
+                removeExercise(v);
                 break;
         }
 
     }
 
     public void addExerciseToRoutine(View v) {
-        Log.e("RoutineEditFragment", "addExerciseToRoutine exerciseSelectedId is: " + exerciseSelected);
+//        Log.e("RoutineEditFragment", "addExerciseToRoutine exerciseSelectedId is: " + exerciseSelected);
 
         if (exerciseSelected < 0) {
             msg(v, "No exercise selected.");
@@ -193,8 +198,8 @@ public class RoutineEditFragment extends Fragment {
         int sets, reps, duration;
         sets = reps = duration = 0;
 
-        Log.e("RoutineEditFragment", "addExerciseToRoutine editSets is:" + editSets);
-        Log.e("RoutineEditFragment", "addExerciseToRoutine editSets is:" + editSets.getText());
+//        Log.e("RoutineEditFragment", "addExerciseToRoutine editSets is:" + editSets);
+//        Log.e("RoutineEditFragment", "addExerciseToRoutine editSets is:" + editSets.getText());
 
         String s;
         s = editSets.getText().toString();
@@ -209,13 +214,41 @@ public class RoutineEditFragment extends Fragment {
 
         RoutineDetailObject temp = new RoutineDetailObject();
         RoutineDetailObject details = temp.createRoutineDetails(routineId, exerciseSelected, sets, reps, duration);
-//                (routineId, exerciseSelected,
-//                sets, reps, duration);
-//                RoutineDetailObject(routineId, exerciseSelected);
-//        details.setDuration(duration);
-//        details.setReps(reps);
-//        details.setSets(sets);
-        msg(v, "Added exercise details.");
+        detailsList.add(temp);
+        detailsAdapter.notifyItemInserted(detailsList.size() - 1);
+    }
+
+    public void removeExercise(View v) {
+
+        if (detailsSelected < 0) {
+            msg(v, "No exercise selected.");
+            return;
+        }
+
+        // Remove details from detailsList
+        int id = detailsSelected; // detailsList.get(detailsSelected).getDetailsId();
+
+        Log.e("DELETE", "---DELETING--- "+id + " --- detailsPosition: " + detailsPosition + " --- detailsSelected: " + detailsSelected);
+
+        Log.e("DELETE", "---DELETING--- "+id);
+        deleteDetail(id);
+
+        // Remove details from the recyclerView
+        detailsRecyclerView.removeViewAt(detailsPosition);
+        detailsAdapter.notifyItemRemoved(detailsPosition);
+        detailsAdapter.notifyItemRangeChanged(detailsPosition, detailsList.size());
+        detailsAdapter.notifyDataSetChanged();
+
+        Iterator it = detailsList.iterator();
+        while (it.hasNext()) {
+            RoutineDetailObject ob = (RoutineDetailObject)it.next();
+            if (id == ob.getDetailsId()) {
+                Log.e("-----------------------", " IT'S EQUAL, SHOULD BE REMOVING: " + id);
+                it.remove();
+            }
+            else Log.e("=======================", " IT'S NOT EQUAL, ID: " + id + "ob.getDetailsId(): " + ob.getDetailsId());
+        }
+
     }
 
     @Override
@@ -255,9 +288,10 @@ public class RoutineEditFragment extends Fragment {
         Log.e("RoutineEditFragment", "exerciseSelected: "+id);
     }
 
-    public void setDetailSelected(int id) {
+    public void setDetailSelected(int id, int position) {
         detailsSelected = id;
         Log.e("RoutineEditFragment", "detailSelected: "+id);
+        detailsPosition =  position;
 
     }
 }

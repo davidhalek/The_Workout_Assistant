@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import david.halek.theworkoutassistant.Database.ConnectionClass;
 import david.halek.theworkoutassistant.R;
@@ -168,7 +169,21 @@ public class RoutineDetailObject {
         return details;
     }
 
+    public static void deleteDetail(int detailId) {
+        String query = "DELETE FROM " + DETAILS_TABLE_NAME +
+                " WHERE " + DETAILS_ID_COLUMN + " = " + detailId;
 
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection con = connectionClass.CONN();
+
+        try {
+            PreparedStatement preparedQuery = con.prepareStatement(query);
+            Log.e("Prepared", preparedQuery.toString());
+            preparedQuery.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

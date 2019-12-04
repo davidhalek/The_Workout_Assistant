@@ -47,7 +47,7 @@ public class ExerciseRecycler extends RecyclerView.Adapter<ExerciseRecycler.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.itemView.setSelected(selectedPos == position);
-//        holder.itemView.setSelected(selectedPos == position);
+//        holder.itemView.setSelected(selectedPos == positionf);
         ExerciseObject ob = (ExerciseObject)exerciseList.get(position);
         Log.e("ROUTINE", "ExerciseRecycler Name is: " + ob.getExerciseName());
         holder.txtExerciseName.setText(ob.getExerciseName().toString());

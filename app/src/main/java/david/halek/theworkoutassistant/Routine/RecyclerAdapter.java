@@ -79,9 +79,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public void openRoutineDetail(View v) {
             int position = getAdapterPosition();
             int id = -1;
-            Snackbar.make(v,"Click detected on item " + position,
-                    Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+//            Snackbar.make(v,"Click detected on item " + position,
+//                    Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
             RoutineObject ob = (RoutineObject)routineList.get(position);
             Log.e("Exercise", "Selected: " + ob.getExerciseRoutineName());
             id = (int)ob.getExerciseRoutineId();

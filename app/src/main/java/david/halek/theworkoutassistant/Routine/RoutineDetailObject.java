@@ -2,8 +2,12 @@ package david.halek.theworkoutassistant.Routine;
 
 import android.util.Log;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import david.halek.theworkoutassistant.Database.ConnectionClass;
 import david.halek.theworkoutassistant.R;
 
 public class RoutineDetailObject {
@@ -67,6 +71,44 @@ public class RoutineDetailObject {
         Log.e("DETAILS", "Query is: " + query);
 
         RoutineObject ob = new RoutineObject(routineId);
+    }
+
+    RoutineDetailObject createRoutineDetails(int routineId, int exerciseId, int sets, int reps, int duration) {
+        this.routineId = routineId;
+        this.exerciseId = exerciseId;
+        this.sets = sets;
+        this.reps = reps;
+        this.duration = duration;
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection con = connectionClass.CONN();
+
+        String query = "INSERT INTO " + DETAILS_TABLE_NAME + "( " +
+                DETAILS_ROUTINE_ID_COLUMN + ", " +
+                DETAILS_EXERCISE_ID_COLUMN + ", " +
+                DETAILS_SETS_COLUMN + ", " +
+                DETAILS_REPS_COLUMN + ", " +
+                DETAILS_DURATION_COLUMN + ") " +
+                "VALUES (?, ?, ?, ?, ? )";
+        int result = -1;
+
+        try {
+            PreparedStatement preparedQuery = con.prepareStatement(query);
+            preparedQuery.setInt( 1, routineId);
+            preparedQuery.setInt( 2, exerciseId);
+            preparedQuery.setInt( 3, sets);
+            preparedQuery.setInt( 4, reps);
+            preparedQuery.setInt( 5, duration);
+            Log.e("PREPARED", preparedQuery.toString());
+            result = preparedQuery.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("RoutineDetailObject", "Update result for "+routineId+" is: "+result);
+//        return (result > 0 ? true : false);
+
+        return this;
     }
 
 

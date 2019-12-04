@@ -12,7 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -40,6 +44,10 @@ public class RoutineEditFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
+
+    EditText editSets;
+    EditText editReps;
+    EditText editDuration;
 
     ArrayList<ExerciseObject> exerciseList;
 
@@ -111,13 +119,84 @@ public class RoutineEditFragment extends Fragment {
 
         adapter = new ExerciseRecycler(exerciseList, RoutineEditFragment.this);
         recyclerView.setAdapter(adapter);
+
+        // Set click event for first button
+        Button button = view.findViewById(R.id.btnAddExerciseToRoutine);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonPressed(v);
+            }
+        });
+
+        // Set click event for other button
+        button = view.findViewById(R.id.btnDeleteExercise);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonPressed(v);
+            }
+        });
+
+        editSets = (EditText) view.findViewById(R.id.editSets);
+        editReps = (EditText) view.findViewById(R.id.editReps);
+        editDuration = (EditText) view.findViewById(R.id.editDuration);
+    }
+
+    public void msg(View v, String msg) {
+        Snackbar.make(v,msg, Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(View v) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(v);
         }
+
+        switch (v.getId()) {
+            case R.id.btnAddExerciseToRoutine:
+                addExerciseToRoutine(v);
+                break;
+            case R.id.btnDeleteExercise:
+                break;
+        }
+
+    }
+
+    public void addExerciseToRoutine(View v) {
+        Log.e("RoutineEditFragment", "addExerciseToRoutine exerciseSelectedId is: " + exerciseSelected);
+
+        if (exerciseSelected < 0) {
+            msg(v, "No exercise selected.");
+            return;
+        }
+
+        int sets, reps, duration;
+        sets = reps = duration = 0;
+
+        Log.e("RoutineEditFragment", "addExerciseToRoutine editSets is:" + editSets);
+        Log.e("RoutineEditFragment", "addExerciseToRoutine editSets is:" + editSets.getText());
+
+        String s;
+        s = editSets.getText().toString();
+        if (!s.equals(""))
+            sets = Integer.parseInt(s);
+
+        s = editReps.getText().toString();
+        if (!s.equals("")) reps = Integer.parseInt(s);
+
+        s = editDuration.getText().toString();
+        if (!s.equals("")) duration = Integer.parseInt(s);
+
+        RoutineDetailObject temp = new RoutineDetailObject();
+        RoutineDetailObject details = temp.createRoutineDetails(routineId, exerciseSelected, sets, reps, duration);
+//                (routineId, exerciseSelected,
+//                sets, reps, duration);
+//                RoutineDetailObject(routineId, exerciseSelected);
+//        details.setDuration(duration);
+//        details.setReps(reps);
+//        details.setSets(sets);
+        msg(v, "Added exercise details.");
     }
 
     @Override
@@ -149,7 +228,7 @@ public class RoutineEditFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(View v);
     }
 
     public void setExerciseSelected(int id) {

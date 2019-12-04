@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">The Workout Assistant</string>
+    <string name="app_name">The Trainer Assistant</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -12,6 +12,23 @@
     <string name="player_error">Error initializing YouTube player: %s</string>
     <string name="seek_to">Jump To</string>
     <string name="seek_to_hint">Seconds</string>
+
+    <string name="show_internet">Show internet preview</string>
+    <string name="internet_unavailable"><b>Internet could not be opened.</b>\nThis occurs when the internet is not available (for example it is already in use) or if the system has denied access (for example when internet access has been disabled).</string>
+    <string name="intro">This sample shows a basic implementation for requesting permissions at runtime.\nClick the button below to request the internet permission and open a full-screen internet preview.</string>
+    <string name="open_internet_preview">Open internet Preview</string>
+    <string name="intro_message"><![CDATA[
+This sample shows a basic implementation for requesting permissions at runtime. Click the button to
+request the internet permission and open a full-screen internet preview.
+Note: The "RuntimePermissions" sample provides a more complete overview over the runtime permission
+features available.]]>
+    </string>
+    <string name="internet_access_required">internet access is required to display the internet preview.</string>
+    <string name="ok">OK</string>
+    <string name="internet_permission_not_available">Permission is not available. Requesting internet permission.</string>
+    <string name="internet_permission_available">internet permission is available. Starting preview.</string>
+    <string name="internet_permission_granted">internet permission was granted. Starting preview.</string>
+    <string name="internet_permission_denied">internet permission request was denied.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -15,12 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-    <activity android:name=".Users.UsersActivity"></activity>
+    <activity
+        android:name=".Users.UsersActivity">
+    </activity>
     <activity
         android:name=".Routine.RoutineActivity"
         android:label="The Trainer Assistant - Exercise Routines">
     </activity>
-
         <activity android:name="exercise.ExerciseActivity" />
     <activity
     android:name=".ui.login.LoginActivity"

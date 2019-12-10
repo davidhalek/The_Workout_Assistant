@@ -143,9 +143,9 @@ public class ExerciseFragment extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(ExerciseDetail ob) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(ob);
         }
     }
 
@@ -178,7 +178,7 @@ public class ExerciseFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(ExerciseDetail ob);
     }
 
 
@@ -188,5 +188,6 @@ public class ExerciseFragment extends Fragment {
         editDesc.setText(exerciseDetail.getExerciseDesc());
         editName.setText(exerciseDetail.getExerciseName());
         editVideo.setText(exerciseDetail.getVideoId());
+//        onFragmentInteraction(exerciseDetail);
     }
 }

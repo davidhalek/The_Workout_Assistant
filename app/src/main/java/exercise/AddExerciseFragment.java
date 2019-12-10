@@ -91,9 +91,9 @@ public class AddExerciseFragment extends Fragment implements View.OnClickListene
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(ExerciseObject ob) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(ob);
         }
     }
 
@@ -168,6 +168,6 @@ public class AddExerciseFragment extends Fragment implements View.OnClickListene
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(ExerciseObject ob);
     }
 }

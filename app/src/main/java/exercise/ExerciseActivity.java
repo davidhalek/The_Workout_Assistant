@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import static david.halek.theworkoutassistant.ConnectionClass.getExerciseList;
 
-public class ExerciseActivity extends AppCompatActivity implements ExerciseFragment.OnFragmentInteractionListener {
+public class ExerciseActivity extends AppCompatActivity implements AddExerciseFragment.OnFragmentInteractionListener {
     int userId = 12; // Todo: get userID from bundle passed by main activity
     private ArrayList exerciseList;
     RecyclerView recyclerView;
@@ -112,17 +112,27 @@ public class ExerciseActivity extends AppCompatActivity implements ExerciseFragm
     public void updateList() {
 
         exerciseList = getExerciseList();
-        Log.e("Exercise", "updateList() called.");
-        adapter.notifyDataSetChanged();
-    }
+        adapter = new RecyclerAdapter(exerciseList);
+        recyclerView.setAdapter(adapter);
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
+        Log.e("===Exercise===", "updateList() called.");
+//        adapter.notifyDataSetChanged();
     }
+//
+//    @Override
+//    public void onFragmentInteraction(ExerciseDetail ob) {
+//
+//
+//    }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(ExerciseObject ob) {
 
     }
 }
